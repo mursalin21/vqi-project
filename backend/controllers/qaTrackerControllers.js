@@ -71,15 +71,20 @@ const getCsvFile = asyncHandler(async (req, res) => {
   // } else if (err) {
   //   return res.status(500).json({ err });
   // }
-  var filename = "products.csv";
+  var filename = "exportInformation.csv";
   QaTracker.find()
     .lean()
     .exec({}, function (err, qaTasks) {
       if (err) res.send(err);
 
       res.statusCode = 200;
-      res.setHeader("Content-Type", "text/csv");
-      res.setHeader("Content-Disposition", "attachment; filename=" + filename);
+      res.setHeader("Content-Type", "application/octet-stream");
+      res.setHeader(
+        "Content-Type",
+        "application/octet-stream",
+        "Content-Disposition",
+        "attachment; filename=" + filename
+      );
       res.csv(qaTasks, true);
     });
 });
