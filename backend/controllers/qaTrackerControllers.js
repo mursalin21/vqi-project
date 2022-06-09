@@ -53,9 +53,9 @@ const getCsvFile = asyncHandler(async (req, res) => {
       if (err) {
         return res.json(err).status(500);
       } else {
-        // setTimeout(function () {
-        //   fs.unlinkSync(filePath);
-        // }, 30000);
+        setTimeout(function () {
+          fs.unlinkSync(filePath);
+        }, 30000);
         return res.json("/exports/csv-" + dateTime + ".csv");
       }
     });
