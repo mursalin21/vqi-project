@@ -81,7 +81,7 @@ const getCsvFile = asyncHandler(async (req, res) => {
       res.setHeader("Content-Type", "application/octet-stream");
       res.setHeader(
         "Content-Type",
-        "application/octet-stream",
+        "application/octet-stream;",
         "Content-Disposition",
         "attachment; filename=" + filename
       );
