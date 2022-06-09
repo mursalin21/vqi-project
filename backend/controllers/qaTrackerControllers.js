@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const res = require("express/lib/response");
 const QaTracker = require("../models/qaTrackerModel");
 const fs = require("fs");
+const csv = require("csv-express");
 const moment = require("moment");
 const json2csv = require("json2csv").parse;
 const path = require("path");
@@ -57,6 +58,12 @@ const getCsvFile = asyncHandler(async (req, res) => {
           fs.unlinkSync(filePath);
         }, 30000);
         // return res.json("/exports/csv-" + dateTime + ".csv");
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "text/csv");
+        res.setHeader(
+          "Content-Disposition",
+          "attachment; filename=" + filename
+        );
         return res.csv(qaTasks, true);
       }
     });
