@@ -78,13 +78,8 @@ const getCsvFile = asyncHandler(async (req, res) => {
       if (err) res.send(err);
 
       res.statusCode = 200;
+      res.setHeader("Content-Disposition", "attachment; filename=" + filename);
       res.setHeader("Content-Type", "application/octet-stream");
-      res.setHeader(
-        "Content-Type",
-        "application/octet-stream;",
-        "Content-Disposition",
-        "attachment; filename=" + filename
-      );
       res.csv(qaTasks, true);
     });
 });
