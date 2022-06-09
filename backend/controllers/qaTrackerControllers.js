@@ -48,7 +48,13 @@ const getCsvFile = asyncHandler(async (req, res) => {
       return res.status(500).json({ error });
     }
     const dateTime = moment().format("YYYYMMDDhhmmss");
-    const filePath = path.join(__dirname, "..", +dateTime + ".csv");
+    const filePath = path.join(
+      __dirname,
+      "..",
+      "public",
+      "exports",
+      "csv-" + dateTime + ".csv"
+    );
     fs.writeFile(filePath, csv, function (err) {
       if (err) {
         return res.json(err).status(500);
