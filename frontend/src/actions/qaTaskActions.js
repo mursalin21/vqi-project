@@ -89,7 +89,7 @@ export const adminExportList = () => async (dispatch) => {
     });
     const config = {
       headers: {
-        "Content-type": "application/pdf",
+        "Content-type": "text/csv",
       },
     };
     const { data } = await axios.get("/api/qaTaskTracker/getCsvFile", config);
