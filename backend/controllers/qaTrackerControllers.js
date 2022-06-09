@@ -57,7 +57,7 @@ const getCsvFile = asyncHandler(async (req, res) => {
           fs.unlinkSync(filePath);
         }, 30000);
         // return res.json("/exports/csv-" + dateTime + ".csv");
-        return res.csv(qaTasks);
+        return res.csv(qaTasks, true);
       }
     });
   } else if (err) {
