@@ -7,6 +7,7 @@ import {
   qaCreateReducer,
   adminTrackerReducer,
   adminTaskUpdateReducer,
+  adminExportListReducer,
 } from "./reducers/qaTrackerReducers";
 
 const reducer = combineReducers({
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   adminTaskList: adminTrackerReducer,
   qaCreate: qaCreateReducer,
   adminTaskUpdate: adminTaskUpdateReducer,
+  adminExportList: adminExportListReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  ADMIN_EXPORT_LIST_FAIL,
+  ADMIN_EXPORT_LIST_REQUEST,
+  ADMIN_EXPORT_LIST_SUCCESS,
   ADMIN_LIST_FAIL,
   ADMIN_LIST_REQUEST,
   ADMIN_LIST_SUCCESS,
@@ -74,6 +77,34 @@ export const listAdminTasks = () => async (dispatch) => {
 
     dispatch({
       type: ADMIN_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const adminExportList = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADMIN_EXPORT_LIST_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const { data } = await axios.get("/api/qaTaskTracker/getCsvFile", config);
+    dispatch({
+      type: ADMIN_EXPORT_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+
+    dispatch({
+      type: ADMIN_EXPORT_LIST_FAIL,
       payload: message,
     });
   }

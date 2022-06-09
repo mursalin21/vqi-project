@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   listAdminTasks,
   updateAdminTaskAction,
+  adminExportList,
 } from "../../actions/qaTaskActions";
 import Loading from "../../Components/Loading";
 import ErrorMessage from "../../Components/ErrorMessage";
@@ -20,6 +21,7 @@ const TaskList = () => {
   const dispatch = useDispatch();
   const adminTaskList = useSelector((state) => state.adminTaskList);
   const adminTaskUpdate = useSelector((state) => state.adminTaskUpdate);
+  // const adminExportList = useSelector((state) => state.adminExportList);
 
   const { loading, qaTasks, error } = adminTaskList;
   const { taskUpdateLoading, taskUpdateError } = adminTaskUpdate;
@@ -73,8 +75,21 @@ const TaskList = () => {
     }, 2000);
   };
 
+  const handleExportCsv = () => {
+    dispatch(adminExportList());
+  };
+
   return (
     <MainScreen title="Report List">
+      <Container
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Button onClick={() => handleExportCsv()}>Export</Button>
+      </Container>
       <Alert color="info" show={visible}>
         Success! Task Updated!
       </Alert>

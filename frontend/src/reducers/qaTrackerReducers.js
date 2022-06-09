@@ -1,4 +1,7 @@
 import {
+  ADMIN_EXPORT_LIST_FAIL,
+  ADMIN_EXPORT_LIST_REQUEST,
+  ADMIN_EXPORT_LIST_SUCCESS,
   ADMIN_LIST_FAIL,
   ADMIN_LIST_REQUEST,
   ADMIN_LIST_SUCCESS,
@@ -38,6 +41,22 @@ export const adminTrackerReducer = (state = { qaTasks: [] }, action) => {
 
     case ADMIN_LIST_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const adminExportListReducer = (state = { qaTasks: [] }, action) => {
+  switch (action.type) {
+    case ADMIN_EXPORT_LIST_REQUEST:
+      return { loading: true };
+
+    case ADMIN_EXPORT_LIST_SUCCESS:
+      return { loading: false, qaTasks: action.payload };
+
+    case ADMIN_EXPORT_LIST_FAIL:
+      return { loading: false, error: action.payload };
+
     default:
       return state;
   }
