@@ -39,38 +39,49 @@ const getAdminTasks = asyncHandler(async (req, res) => {
 });
 
 const getCsvFile = asyncHandler(async (req, res) => {
-  const qaTasks = await QaTracker.find();
+  // const qaTasks = await QaTracker.find();
 
-  if (qaTasks) {
-    let csv;
-    try {
-      csv = json2csv(qaTasks, { fields });
-    } catch (error) {
-      return res.status(500).json({ error });
-    }
-    const dateTime = moment().format("YYYYMMDDhhmmss");
-    const filename = "products.csv";
-    const filePath = path.join(__dirname, "..", +dateTime + ".csv");
-    fs.writeFile(filePath, csv, function (err) {
-      if (err) {
-        return res.json(err).status(500);
-      } else {
-        setTimeout(function () {
-          fs.unlinkSync(filePath);
-        }, 30000);
-        // return res.json("/exports/csv-" + dateTime + ".csv");
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "text/csv");
-        res.setHeader(
-          "Content-Disposition",
-          "attachment; filename=" + filename
-        );
-        res.csv(qaTasks, true);
-      }
+  // if (qaTasks) {
+  //   let csv;
+  //   try {
+  //     csv = json2csv(qaTasks, { fields });
+  //   } catch (error) {
+  //     return res.status(500).json({ error });
+  //   }
+  //   const dateTime = moment().format("YYYYMMDDhhmmss");
+  //   const filename = "products.csv";
+  //   const filePath = path.join(__dirname, "..", +dateTime + ".csv");
+  //   fs.writeFile(filePath, csv, function (err) {
+  //     if (err) {
+  //       return res.json(err).status(500);
+  //     } else {
+  //       setTimeout(function () {
+  //         fs.unlinkSync(filePath);
+  //       }, 30000);
+  //       // return res.json("/exports/csv-" + dateTime + ".csv");
+  //       res.statusCode = 200;
+  //       res.setHeader("Content-Type", "text/csv");
+  //       res.setHeader(
+  //         "Content-Disposition",
+  //         "attachment; filename=" + filename
+  //       );
+  //       res.csv(qaTasks, true);
+  //     }
+  //   });
+  // } else if (err) {
+  //   return res.status(500).json({ err });
+  // }
+  var filename = "products.csv";
+  QaTracker.find()
+    .lean()
+    .exec({}, function (err, qaTasks) {
+      if (err) res.send(err);
+
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "text/csv");
+      res.setHeader("Content-Disposition", "attachment; filename=" + filename);
+      res.csv(qaTasks, true);
     });
-  } else if (err) {
-    return res.status(500).json({ err });
-  }
 });
 
 const getTaskById = asyncHandler(async () => {
