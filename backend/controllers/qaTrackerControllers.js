@@ -48,13 +48,7 @@ const getCsvFile = asyncHandler(async (req, res) => {
       return res.status(500).json({ error });
     }
     const dateTime = moment().format("YYYYMMDDhhmmss");
-    const filePath = path.join(
-      __dirname,
-      "..",
-      "public",
-      "exports",
-      "csv-" + dateTime + ".csv"
-    );
+    const filePath = path.join(__dirname, "..", +dateTime + ".csv");
     fs.writeFile(filePath, csv, function (err) {
       if (err) {
         return res.json(err).status(500);
@@ -62,7 +56,8 @@ const getCsvFile = asyncHandler(async (req, res) => {
         setTimeout(function () {
           fs.unlinkSync(filePath);
         }, 30000);
-        return res.json("/exports/csv-" + dateTime + ".csv");
+        // return res.json("/exports/csv-" + dateTime + ".csv");
+        return res.json(dateTime + ".csv");
       }
     });
   } else if (err) {
