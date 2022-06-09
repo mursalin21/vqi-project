@@ -65,7 +65,7 @@ const getCsvFile = asyncHandler(async (req, res) => {
           "Content-Disposition",
           "attachment; filename=" + filename
         );
-        return res.csv(qaTasks, true);
+        res.csv(qaTasks, true);
       }
     });
   } else if (err) {
