@@ -87,12 +87,12 @@ export const adminExportList = () => async (dispatch) => {
     dispatch({
       type: ADMIN_EXPORT_LIST_REQUEST,
     });
-    const config = {
-      headers: {
-        "Content-type": "text/csv",
-      },
-    };
-    const { data } = await axios.get("/api/qaTaskTracker/getCsvFile", config);
+    // const config = {
+    //   headers: {
+    //     "Content-type": "text/csv",
+    //   },
+    // };
+    const { data } = await axios.get("/api/qaTaskTracker/getCsvFile");
     dispatch({
       type: ADMIN_EXPORT_LIST_SUCCESS,
       payload: data,
