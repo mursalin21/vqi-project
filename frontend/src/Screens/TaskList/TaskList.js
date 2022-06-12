@@ -80,7 +80,7 @@ const TaskList = () => {
 	};
 
 	return (
-		<MainScreen title="Report List Testing">
+		<MainScreen title="Report List">
 			<Container
 				style={{
 					display: "flex",
